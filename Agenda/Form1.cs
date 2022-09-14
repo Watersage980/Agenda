@@ -56,7 +56,37 @@ namespace Agenda
                 //btnInserir.Text = "NOVO";
             }
         }
+       
+        private void btnDeletar_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.Yes == MessageBox.Show("Deseja realmente excluir", "Confirmação", MessageBoxButtons.YesNo))
+            {
 
+                try
+                {
+                    using (MySqlConnection cnn = new MySqlConnection())
+                    {
+                        cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
+                        cnn.Open();
+                        string sql = "Delete from contatos where idContato = '" + txtID.Text + "'";
+                        MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show(" Deletado com sucesso! ");
+
+                    }
+                    limpar();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+
+
+            }
+            mostrar();
+
+        }
         //métodos
         void mostrar()
         {
@@ -102,5 +132,6 @@ namespace Agenda
                 MessageBox.Show("Insira todos os dados parça");
             }
         }
+
     }
 }
