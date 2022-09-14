@@ -17,13 +17,15 @@ namespace Agenda
         {
             InitializeComponent();
             mostrar();
+            btnDeletar.Visible = false;
+            btnUpdate.Visible = false;
         }
         string continua = "yes";
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
             verificarvazio();
-            if (continua == "yes")
+            if (continua == "yes" && btnInserir.Text=="INSERIR")
             {
                 try
                 {
@@ -42,7 +44,11 @@ namespace Agenda
                     MessageBox.Show(ex.ToString());
                 }
                 limpar();
-            }        
+            }   
+            else if (btnInserir.Text=="NOVO")
+            {
+                limpar();
+            }
             mostrar();
         }
 
@@ -53,7 +59,9 @@ namespace Agenda
                 txtID.Text = dgwTabela.CurrentRow.Cells[0].Value.ToString();
                 txtNome.Text = dgwTabela.CurrentRow.Cells[1].Value.ToString();
                 txtEmail.Text = dgwTabela.CurrentRow.Cells[2].Value.ToString();
-                //btnInserir.Text = "NOVO";
+                btnInserir.Text = "NOVO";
+                btnDeletar.Visible = true;
+                btnUpdate.Visible = true;
             }
         }
        
@@ -141,6 +149,9 @@ namespace Agenda
             txtID.Clear();
             txtEmail.Clear();
             txtNome.Clear();
+            btnInserir.Text = "INSERIR";
+            btnDeletar.Visible = false;
+            btnUpdate.Visible = false;
         }
         void verificarvazio()
         {

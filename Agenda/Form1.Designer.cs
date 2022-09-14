@@ -38,6 +38,8 @@
             this.dgwTabela = new System.Windows.Forms.DataGridView();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.txtPesquisar = new System.Windows.Forms.TextBox();
+            this.btnPesquisar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwTabela)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,11 +131,30 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // txtPesquisar
+            // 
+            this.txtPesquisar.Location = new System.Drawing.Point(364, 24);
+            this.txtPesquisar.Multiline = true;
+            this.txtPesquisar.Name = "txtPesquisar";
+            this.txtPesquisar.Size = new System.Drawing.Size(240, 20);
+            this.txtPesquisar.TabIndex = 9;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.Location = new System.Drawing.Point(640, 22);
+            this.btnPesquisar.Name = "btnPesquisar";
+            this.btnPesquisar.Size = new System.Drawing.Size(75, 23);
+            this.btnPesquisar.TabIndex = 10;
+            this.btnPesquisar.Text = "Pesquisar";
+            this.btnPesquisar.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnPesquisar);
+            this.Controls.Add(this.txtPesquisar);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDeletar);
             this.Controls.Add(this.dgwTabela);
@@ -164,6 +185,8 @@
         private System.Windows.Forms.DataGridView dgwTabela;
         private System.Windows.Forms.Button btnDeletar;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.TextBox txtPesquisar;
+        private System.Windows.Forms.Button btnPesquisar;
     }
 }
 
