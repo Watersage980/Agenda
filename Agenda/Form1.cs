@@ -68,7 +68,7 @@ namespace Agenda
                     {
                         cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
                         cnn.Open();
-                        string sql = "Delete from contatos where idContato = '" + txtID.Text + "'";
+                        string sql = "Delete from contatos where idContatos = '" + txtID.Text + "'";
                         MySqlCommand cmd = new MySqlCommand(sql, cnn);
                         cmd.ExecuteNonQuery();
                         MessageBox.Show(" Deletado com sucesso! ");
@@ -86,6 +86,28 @@ namespace Agenda
             }
             mostrar();
 
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (MySqlConnection cnn = new MySqlConnection())
+                {
+                    cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
+                    cnn.Open();
+                    string sql = "Update contatos set nome='" + txtNome.Text + "', email='" + txtEmail.Text + "' where idContatos='" + txtID.Text + "'";
+                    MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Atualizado com sucesso!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            mostrar();
         }
         //métodos
         void mostrar()
