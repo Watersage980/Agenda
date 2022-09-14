@@ -105,7 +105,7 @@
             this.dgwTabela.Name = "dgwTabela";
             this.dgwTabela.Size = new System.Drawing.Size(741, 168);
             this.dgwTabela.TabIndex = 6;
-            this.dgwTabela.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwTabela_CellContentDoubleClick);
+            this.dgwTabela.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwTabela_CellDoubleClick);
             // 
             // Form1
             // 

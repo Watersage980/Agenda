@@ -18,27 +18,46 @@ namespace Agenda
             InitializeComponent();
             mostrar();
         }
+        string continua = "yes";
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
-            try
+            verificarvazio();
+            if (continua == "yes")
             {
-                using (MySqlConnection cnn = new MySqlConnection())
+                try
                 {
-                    cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
-                    cnn.Open();
-                    MessageBox.Show("Inserido com sucesso!");
-                    string sql = "insert into contatos (nome, email) values ('" + txtNome.Text + "', '" + txtEmail.Text + "')";
-                    MySqlCommand cmd = new MySqlCommand(sql, cnn);
-                    cmd.ExecuteNonQuery();
+                    using (MySqlConnection cnn = new MySqlConnection())
+                    {
+                        cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
+                        cnn.Open();
+                        MessageBox.Show("Inserido com sucesso!");
+                        string sql = "insert into contatos (nome, email) values ('" + txtNome.Text + "', '" + txtEmail.Text + "')";
+                        MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                limpar();
+            }        
             mostrar();
         }
+
+        private void dgwTabela_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgwTabela.CurrentRow.Index != -1)
+            {
+                txtID.Text = dgwTabela.CurrentRow.Cells[0].Value.ToString();
+                txtNome.Text = dgwTabela.CurrentRow.Cells[1].Value.ToString();
+                txtEmail.Text = dgwTabela.CurrentRow.Cells[2].Value.ToString();
+                //btnInserir.Text = "NOVO";
+            }
+        }
+
+        //métodos
         void mostrar()
         {
             try
@@ -65,14 +84,22 @@ namespace Agenda
 
         }
 
-        private void dgwTabela_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        void limpar()
         {
-            if (dgwTabela.CurrentRow.Index != -1)
+            txtID.Clear();
+            txtEmail.Clear();
+            txtNome.Clear();
+        }
+        void verificarvazio()
+        {
+            if (txtEmail.Text != "" && txtNome.Text != "")
             {
-                txtID.Text = dgwTabela.CurrentRow.Cells[0].Value.ToString();
-                txtNome.Text = dgwTabela.CurrentRow.Cells[1].Value.ToString();
-                txtEmail.Text = dgwTabela.CurrentRow.Cells[2].Value.ToString();
-                //btnInserir.Text = "NOVO";
+                continua = "yes";
+            }
+            else
+            {
+                continua = "no";
+                MessageBox.Show("Insira todos os dados parça");
             }
         }
     }
