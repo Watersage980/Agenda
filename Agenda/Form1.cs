@@ -155,16 +155,43 @@ namespace Agenda
         }
         void verificarvazio()
         {
-            if (txtEmail.Text != "" && txtNome.Text != "")
+            if (txtEmail.Text == "" || txtNome.Text == "")
             {
-                continua = "yes";
+                continua = "no";
+                MessageBox.Show("Insira todos os dados parça");               
             }
             else
             {
-                continua = "no";
-                MessageBox.Show("Insira todos os dados parça");
+                continua = "yes";
             }
         }
 
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (MySqlConnection cnn = new MySqlConnection())
+                {
+                    cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
+                    cnn.Open();
+                    string sql = "Select * from contatos where nome='" + txtPesquisar.Text + "'";
+                    MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                    cmd.ExecuteNonQuery();
+                    DataTable table = new DataTable();
+                    MySqlDataAdapter adpter = new MySqlDataAdapter(sql, cnn);
+                    adpter.Fill(table);
+                    dgwTabela.DataSource = table;
+
+                    dgwTabela.AutoGenerateColumns = false;
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }
