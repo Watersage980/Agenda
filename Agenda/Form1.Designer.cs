@@ -39,7 +39,8 @@
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.txtPesquisar = new System.Windows.Forms.TextBox();
-            this.btnPesquisar = new System.Windows.Forms.Button();
+            this.rbNome = new System.Windows.Forms.RadioButton();
+            this.rbEmail = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgwTabela)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,23 +139,37 @@
             this.txtPesquisar.Name = "txtPesquisar";
             this.txtPesquisar.Size = new System.Drawing.Size(240, 20);
             this.txtPesquisar.TabIndex = 9;
+            this.txtPesquisar.TextChanged += new System.EventHandler(this.txtPesquisar_TextChanged);
             // 
-            // btnPesquisar
+            // rbNome
             // 
-            this.btnPesquisar.Location = new System.Drawing.Point(640, 22);
-            this.btnPesquisar.Name = "btnPesquisar";
-            this.btnPesquisar.Size = new System.Drawing.Size(75, 23);
-            this.btnPesquisar.TabIndex = 10;
-            this.btnPesquisar.Text = "Pesquisar";
-            this.btnPesquisar.UseVisualStyleBackColor = true;
-            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
+            this.rbNome.AutoSize = true;
+            this.rbNome.Location = new System.Drawing.Point(364, 72);
+            this.rbNome.Name = "rbNome";
+            this.rbNome.Size = new System.Drawing.Size(120, 17);
+            this.rbNome.TabIndex = 11;
+            this.rbNome.TabStop = true;
+            this.rbNome.Text = "Pesquisar por Nome";
+            this.rbNome.UseVisualStyleBackColor = true;
+            // 
+            // rbEmail
+            // 
+            this.rbEmail.AutoSize = true;
+            this.rbEmail.Location = new System.Drawing.Point(509, 72);
+            this.rbEmail.Name = "rbEmail";
+            this.rbEmail.Size = new System.Drawing.Size(116, 17);
+            this.rbEmail.TabIndex = 12;
+            this.rbEmail.TabStop = true;
+            this.rbEmail.Text = "Pesquisar por email";
+            this.rbEmail.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnPesquisar);
+            this.Controls.Add(this.rbEmail);
+            this.Controls.Add(this.rbNome);
             this.Controls.Add(this.txtPesquisar);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDeletar);
@@ -187,7 +202,8 @@
         private System.Windows.Forms.Button btnDeletar;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.TextBox txtPesquisar;
-        private System.Windows.Forms.Button btnPesquisar;
+        private System.Windows.Forms.RadioButton rbNome;
+        private System.Windows.Forms.RadioButton rbEmail;
     }
 }
 

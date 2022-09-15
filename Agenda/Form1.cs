@@ -98,22 +98,25 @@ namespace Agenda
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            try
+            if (DialogResult.Yes == MessageBox.Show("Deseja realmente atualizar", "Confirmação", MessageBoxButtons.YesNo))
             {
-                using (MySqlConnection cnn = new MySqlConnection())
+                try
                 {
-                    cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
-                    cnn.Open();
-                    string sql = "Update contatos set nome='" + txtNome.Text + "', email='" + txtEmail.Text + "' where idContatos='" + txtID.Text + "'";
-                    MySqlCommand cmd = new MySqlCommand(sql, cnn);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Atualizado com sucesso!");
-                }
+                    using (MySqlConnection cnn = new MySqlConnection())
+                    {
+                        cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
+                        cnn.Open();
+                        string sql = "Update contatos set nome='" + txtNome.Text + "', email='" + txtEmail.Text + "' where idContatos='" + txtID.Text + "'";
+                        MySqlCommand cmd = new MySqlCommand(sql, cnn);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Atualizado com sucesso!");
+                    }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
             mostrar();
         }
@@ -149,13 +152,18 @@ namespace Agenda
             txtID.Clear();
             txtEmail.Clear();
             txtNome.Clear();
+            txtPesquisar.Clear();
             btnInserir.Text = "INSERIR";
             btnDeletar.Visible = false;
             btnUpdate.Visible = false;
         }
         void verificarvazio()
         {
-            if (txtEmail.Text == "" || txtNome.Text == "")
+            if(txtPesquisar.Text !="")
+            {
+                continua = "no";
+            }
+            else if (txtEmail.Text == "" || txtNome.Text == "")
             {
                 continua = "no";
                 MessageBox.Show("Insira todos os dados parça");               
@@ -166,7 +174,9 @@ namespace Agenda
             }
         }
 
-        private void btnPesquisar_Click(object sender, EventArgs e)
+       
+
+        private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -174,7 +184,17 @@ namespace Agenda
                 {
                     cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
                     cnn.Open();
-                    string sql = "Select * from contatos where nome='" + txtPesquisar.Text + "'";
+                    string sql;
+
+                    if (rbEmail.Checked)
+                    {
+                        sql = "Select * from contatos where email Like'" + txtPesquisar.Text + "%'";
+                    }
+                    else
+                    {
+                        sql = "Select * from contatos where nome Like'" + txtPesquisar.Text + "%'";
+                    }
+
                     MySqlCommand cmd = new MySqlCommand(sql, cnn);
                     cmd.ExecuteNonQuery();
                     DataTable table = new DataTable();
@@ -191,6 +211,11 @@ namespace Agenda
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+
+           if (txtPesquisar != null)
+            {
+                btnInserir.Text = "NOVO";
             }
         }
     }
