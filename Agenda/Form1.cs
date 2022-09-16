@@ -23,10 +23,11 @@ namespace Agenda
         string continua = "yes";
 
         private void btnInserir_Click(object sender, EventArgs e)
-        {
+        {           
             verificarvazio();
             if (continua == "yes" && btnInserir.Text=="INSERIR")
             {
+                //acessa o banco para obter os dados e adicionar os novos ao inserir o comando de insert utilizando uma string
                 try
                 {
                     using (MySqlConnection cnn = new MySqlConnection())
@@ -43,10 +44,12 @@ namespace Agenda
                 {
                     MessageBox.Show(ex.ToString());
                 }
+                //limpa os campos dépois de executar com sucesso
                 limpar();
             }   
             else if (btnInserir.Text=="NOVO")
             {
+                //limpa tudo para inserir novas informações
                 limpar();
             }
             mostrar();
@@ -54,6 +57,7 @@ namespace Agenda
 
         private void dgwTabela_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //permite selecionar dados e habilita os botões de deletar e atualizar
             if (dgwTabela.CurrentRow.Index != -1)
             {
                 txtID.Text = dgwTabela.CurrentRow.Cells[0].Value.ToString();
@@ -67,9 +71,10 @@ namespace Agenda
        
         private void btnDeletar_Click(object sender, EventArgs e)
         {
+            //confirma se o usuário realmente deseja excluir os dados
             if (DialogResult.Yes == MessageBox.Show("Deseja realmente excluir", "Confirmação", MessageBoxButtons.YesNo))
             {
-
+                //deleta os ddos selecionados utilizando o comando delete através de uma string
                 try
                 {
                     using (MySqlConnection cnn = new MySqlConnection())
@@ -98,8 +103,10 @@ namespace Agenda
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            //confirma se deseja atualizar os dados
             if (DialogResult.Yes == MessageBox.Show("Deseja realmente atualizar", "Confirmação", MessageBoxButtons.YesNo))
             {
+                //atualiza os dados utilizando o comando update através de uma string
                 try
                 {
                     using (MySqlConnection cnn = new MySqlConnection())
@@ -123,8 +130,10 @@ namespace Agenda
         //métodos
         void mostrar()
         {
+            //permite que a tabela acesse o banco para mostrar todos os dados presentes
             try
             {
+                //mostra todos os dados através do comando select * utilizando uma string
                 using (MySqlConnection cnn = new MySqlConnection())
                 {
                     cnn.ConnectionString = "server=localhost;database=agenda;uid=root;pwd=;port=3306";
@@ -149,6 +158,7 @@ namespace Agenda
 
         void limpar()
         {
+            //limpa todas as text box, reseta os botões de deletar e atualizar para seu estado oculto, e restaura o texto do botão inserir
             txtID.Clear();
             txtEmail.Clear();
             txtNome.Clear();
@@ -159,7 +169,8 @@ namespace Agenda
         }
         void verificarvazio()
         {
-            if(txtPesquisar.Text !="")
+            //verifica se o campo de pesquisa está preenchido e/ou se os campos de nome e mail estão incompletos
+            if (txtPesquisar.Text !="")
             {
                 continua = "no";
             }
@@ -178,6 +189,7 @@ namespace Agenda
 
         private void txtPesquisar_TextChanged(object sender, EventArgs e)
         {
+            //permite procurar dados específicos utilizando a primeira lera do nome ou email
             try
             {
                 using (MySqlConnection cnn = new MySqlConnection())
